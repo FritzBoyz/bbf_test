@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ascii_art_web</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #fff;   /* White background */
+      color: #000;        /* Black text */
+      font-family: monospace;
+    }
+    pre {
+      line-height: 1;
+      font-size: 14px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <pre id="art"></pre>
+
+  <script>
+    class ascii_art_web {
+      constructor(width = 41) {
+        this.width = width;
+      }
+
+      makeRow(leftHash, dots, middleHash, dots2 = null, rightHash = null) {
+        if (dots2 === null) dots2 = dots;
+        if (rightHash === null) rightHash = leftHash;
+
+        return "#".repeat(leftHash) + ".".repeat(dots) +
+               "#".repeat(middleHash) + ".".repeat(dots2) +
+               "#".repeat(rightHash);
+      }
+
+      generateArt() {
+        let output = "";
+        // Top border
+        output += "#".repeat(this.width) + "\n";
+        output += "#".repeat(this.width) + "\n";
+
+        const pattern = [
+          [14, 13, 14],
+          [12, 17, 12],
+          [10, 10, 1, 10, 10],
+          [9, 6, 11, 6, 9],
+          [8, 5, 15, 5, 8],
+          [7, 4, 19, 4, 7],
+          [6, 4, 21, 4, 6],
+          [5, 4, 23, 4, 5],
+          [4, 4, 25, 4, 4],
+          [4, 3, 27, 3, 4],
+          [3, 4, 27, 4, 3],
+          [3, 3, 29, 3, 3],
+          [2, 4, 29, 4, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 2, 33, 2, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 3, 31, 3, 2],
+          [2, 4, 29, 4, 2],
+          [3, 3, 29, 3, 3],
+          [3, 4, 27, 4, 3],
+          [4, 3, 27, 3, 4],
+          [4, 4, 25, 4, 4],
+          [5, 4, 23, 4, 5],
+          [6, 4, 21, 4, 6],
+          [7, 4, 19, 4, 7],
+          [8, 5, 15, 5, 8],
+          [9, 6, 11, 6, 9],
+          [10, 10, 1, 10, 10],
+          [12, 17, 12],
+          [14, 13, 14]
+        ];
+
+        // Generate rows
+        for (const row of pattern) {
+          output += this.makeRow(...row) + "\n";
+        }
+
+        // Bottom border
+        output += "#".repeat(this.width) + "\n";
+        output += "#".repeat(this.width) + "\n";
+
+        return output;
+      }
+    }
+
+    // Render ASCII art into <pre>
+    const generate = new ascii_art_web();
+    document.getElementById("art").textContent = generate.generateArt();
+  </script>
+</body>
+</html>
